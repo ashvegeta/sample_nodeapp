@@ -1,0 +1,19 @@
+docker build -t nodeapp066 .
+docker tag nodeapp066 manishm2020/nodeapp066
+docker login
+docker push manishm2020/nodeapp066
+kubectl create deployment nodeapp066 --image=cserit/nodeapp066
+kubectl get deployment nodeapp066
+kubectl get pods | grep '^nodeapp066'
+kubectl expose deployment nodeapp066 --type=LoadBalancer --port=9066
+kubectl get service nodeapp066
+# to run open browser
+http://172.1.14.168:<node_port>/index.html
+(This is a diff port which comes after executing the previous command)
+
+
+
+kubectl delete service nodeapp066
+kubectl delete deployment nodeapp066
+kubectl delete --all pods
+#kubectl expose deployment/nodeapp066 --type="NodePort" --port 9066
